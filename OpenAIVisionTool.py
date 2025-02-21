@@ -7,7 +7,6 @@ import re
 import os
 import json
 
-
 class OpenAIBrochureProcessingTool(BaseTool):
     """A LangGraph-compatible tool for calling OpenAI's ChatCompletion with image support."""
     name: str = "openai_vision_tool"
@@ -16,7 +15,7 @@ class OpenAIBrochureProcessingTool(BaseTool):
     _supported_image_extensions: tuple = (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webp")
 
     def __init__(self,
-                 api_key: str = "",
+                 api_key,
                  model: str = "gpt-4o"):
         super().__init__()
         self._chat = ChatOpenAI(model=model, openai_api_key=api_key)
@@ -55,7 +54,6 @@ class OpenAIBrochureProcessingTool(BaseTool):
                     print(f"{filename}: \n{cleaned_json}")
                 except json.JSONDecodeError:
                     print(f"Skipping {filename}: Invalid JSON format")
-
         return ""
 
     def _clean_string_convert_to_json(self, json_string):
